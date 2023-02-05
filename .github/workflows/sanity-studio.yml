@@ -21,7 +21,9 @@ jobs:
       - name: Install Sanity CLI
         uses: borales/actions-yarn@v4
         with:
-          cmd: dlx -p sanity/cli sanity build 
+          cmd: global add @sanity/cli 
+      - name: Build Studio
+        run: sanity build 
       - name: Verify Build
         run: ls -la dist
       - name: Set Up SSH
