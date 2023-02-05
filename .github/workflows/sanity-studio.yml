@@ -1,0 +1,34 @@
+name: Build & Deploy Sanity Studio
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-and-deploy:
+    name: Build & Deploy Sanity Studio
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install # will run `yarn install` command
+      - name: Install Sanity CLI
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: dlx -p sanity/cli sanity build 
+      - name: Verify Build
+        run: ls -la dist
+      - name: Set Up SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.FFWD_SANITY_DREAMHOST_KEY }}" > ~/.ssh/sanity_cms
+          sudo chmod 600 ~/.ssh/sanity_cms
+          ssh-keyscan -H "cottrell.dreamhost.com" > ~/.ssh/known_hosts
+      - name: SFTP Upload
+        run: sftp -i ~/.ssh/sanity_cms dh_n232ff@cottrell.dreamhost.com <<< $'cd studio.biggerovski.online \n put -r dist/*'          
