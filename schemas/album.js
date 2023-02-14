@@ -14,23 +14,28 @@ export default {
             title: 'Artist'
         },
         {
-            name: 'new_image',
+            name: 'albumImage',
             type: 'image',
             title: 'Album Image'
         },
         {
             title: 'Main Link',
-            name: 'main_link',
+            name: 'mainLink',
             type: 'url'
         },
         {
             title: 'Download Link',
-            name: 'download_link',
+            name: 'downloadLink',
             type: 'url'
         },
         {
+            title: 'Content',
+            name: 'content',
+            type: 'text'
+        },
+        {
             title: 'Published date',
-            name: 'published_date',
+            name: 'publishedDate',
             type: 'datetime',
             readonly: true,
             initialValue: () => Date()
