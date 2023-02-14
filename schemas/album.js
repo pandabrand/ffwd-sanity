@@ -20,12 +20,12 @@ export default {
         },
         {
             title: 'Main Link',
-            name: 'apple_link',
+            name: 'main_link',
             type: 'url'
         },
         {
             title: 'Download Link',
-            name: 'link',
+            name: 'download_link',
             type: 'url'
         },
         {
